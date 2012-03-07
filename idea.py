@@ -1,3 +1,4 @@
+import cgi
 from google.appengine.api import users
 from google.appengine.ext import db
 
@@ -5,7 +6,6 @@ class Idea(db.Model):
 	author = db.UserProperty()
 	content = db.StringProperty(multiline=True)
 	date = db.DateTimeProperty(auto_now_add=True)
-	#parent_idea = db.SelfReferenceProperty()
 	parent_id = db.IntegerProperty()
 
 def create_idea(content_text, parent_idea):
@@ -30,7 +30,7 @@ def delete_idea(idea):
 	childs = Idea.get_by_id(ids=childIds, parent=idea)
 	db.run_in_transaction(delete_cascade, idea, childs)
 
-def delete_cascade(parent, childs)
+def delete_cascade(parent, childs):
 	db.delete(childs)
 	parent.delete()
 
