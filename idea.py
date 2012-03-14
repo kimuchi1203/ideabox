@@ -7,7 +7,9 @@ class Idea(db.Model):
 	content = db.StringProperty(multiline=True)
 	date = db.DateTimeProperty(auto_now_add=True)
 	parent_id = db.IntegerProperty()
+	# (TODO) deleted_flag
 
+# (TODO) 関数名は idea_hoge() にする
 def create_idea(content_text, parent_idea):
 	idea = Idea()
 	if users.get_current_user():
@@ -20,6 +22,7 @@ def delete_idea_content(self):
 	# delete only content by user
 	if self.author is not None and self.author == users.get_current_user():
 		self.content = "(deleted)"
+		# (TODO) deleted_flag = true にするだけでデータは保持
 
 def delete_idea(idea):
 	# delete tree for maintenance

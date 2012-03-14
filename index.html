@@ -1,8 +1,59 @@
 <html>
   <head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/stylesheets/bootstrap-responsive.min.css" />
     <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body>
-    <a href="{{ login_url }}">{{ login_url_linktext }}</a>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Idea box</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><a href="#">Home</a></li>
+            </ul>
+	<p class="navbar-text pull-right">Logged in as <a href="{{ login_out_url }}">{{ user_name }}</a></p>
+          </div><!-- /.nav-collapse -->
+        </div>
+      </div>
+    </div><!-- /navbar -->
+    <div class="container-fluid">
+    <div class="content">
+      <div class="row idea_list">
+        {% for idea in idea_list %}
+          <div class="idea">
+            <p class="idea_content">{{ idea.content }}</p>
+            <p class="author">{{ idea.author }}</p>
+            <p class="date">{{ idea.date }}</p>
+            <form action="/ideadelete" class="idea_btn" method="post">
+              <div><input type="submit" class="btn-mini" value="delete" /></div>
+            </form>
+          </div>
+        {% endfor %}
+      </div><!-- /row -->
+    </div><!-- content -->
+    <div class="sidebar ideapost">
+      <form action="/ideapost" method="post">
+        <div><textarea name="content" rows="3" cols="60"></textarea></div>
+        <div><input type="submit" class="btn" value="Post Idea" /></div>
+      </form>
+    </div><!-- /sidebar -->
+    </div><!-- /container-fluid -->
+    <footer>
+    </footer>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
   </body>
 </html>

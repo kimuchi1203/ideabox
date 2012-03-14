@@ -1,4 +1,43 @@
 body {
   font-family: Verdana, Helvetica, sans-serif;
-  background-color: #DDDDDD;
+  background-color: #E8E8E8;
+}
+.container-fluid > .sidebar {
+  float: left;
+  width: 220px;
+  margin-left:20px;
+  margin-top:0px;
+}
+.container-fluid > .content {
+  float: left;
+  min-width: 220px;
+  max-width: 1180px;
+  margin-top: 0px;
+}
+div.idea {
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 9px;
+  padding-bottom:9px;
+  background-color: white;
+  border-bottom: #E8E8E8 solid 1px;
+}
+p.idea_content {
+  font-size: medium;
+  padding: 0px;
+  margin: 0px;
+}
+p.author {
+  font-size: small;
+  color: #CCCCCC;
+  padding: 0px;
+  margin: 0px;
+}
+p.date {
+  font-size: small;
+  padding: 0px;
+  margin: 0px;
+}
+form.idea_btn {
+  margin: 0px;
 }
