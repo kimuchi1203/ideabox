@@ -10,7 +10,7 @@ class Idea(db.Model):
 	# (TODO) deleted_flag
 
 # (TODO) 関数名は idea_hoge() にする
-def create_idea(content_text, parent_idea):
+def idea_create(content_text, parent_idea):
 	idea = Idea()
 	if users.get_current_user():
 		idea.author = users.get_current_user()
@@ -18,13 +18,13 @@ def create_idea(content_text, parent_idea):
 	idea.parent = parent_idea
 	idea.put()
 
-def delete_idea_content(self):
+def idea_delete_content(self):
 	# delete only content by user
 	if self.author is not None and self.author == users.get_current_user():
 		self.content = "(deleted)"
 		# (TODO) deleted_flag = true にするだけでデータは保持
 
-def delete_idea(idea):
+def idea_delete(idea):
 	# delete tree for maintenance
 	_childs = Idea.gql("WHERE ANCESTOR IS = :parent", parent=idea)
 	childIds=[]

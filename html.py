@@ -10,6 +10,7 @@ from google.appengine.ext import db
 from google.appengine.ext.webapp import template
 
 from idea import Idea
+from idea import idea_*
 # (TODO) model の他も import する
 
 class MainPage(webapp.RequestHandler):
@@ -44,6 +45,8 @@ class IdeaPost(webapp.RequestHandler):
 class IdeaDelete(webapp.RequestHandler):
     def post(self):
         # (TODO) まず delete_idea を呼ぶようにして試す
+        # post に ID を入れて、 selected_idea を検索
+        # idea_delete(selected_idea)
         # (TODO) その後 delete_idea_content にする
         self.redirect('/')
 
