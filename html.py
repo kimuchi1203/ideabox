@@ -10,8 +10,9 @@ from google.appengine.ext import db
 from google.appengine.ext.webapp import template
 
 from idea import Idea
-from idea import idea_*
-# (TODO) model の他も import する
+from idea import idea_create
+from idea import idea_delete
+#from idea import idea_delete_content
 
 class MainPage(webapp.RequestHandler):
     def get(self):
@@ -44,10 +45,14 @@ class IdeaPost(webapp.RequestHandler):
 
 class IdeaDelete(webapp.RequestHandler):
     def post(self):
-        # (TODO) まず delete_idea を呼ぶようにして試す
-        # post に ID を入れて、 selected_idea を検索
-        # idea_delete(selected_idea)
-        # (TODO) その後 delete_idea_content にする
+        #idea_id = int(self.request.get('idea_id'))
+        #idea_target = Idea.get_by_id(int(self.request.get('idea_id')))
+        idea_target = Idea.get(db.Key.from_path('Idea', int(self.request.get('idea_id'))))
+        # idea_delete(idea_target) is not work
+        # idea_target.delete() is work
+        idea_target.idea_delete_content()
+        #idea_target.put() is not work
+        # (TODO) idea_delete(selected_idea) -> idea_delete_content in the future
         self.redirect('/')
 
 application = webapp.WSGIApplication([('/', MainPage),

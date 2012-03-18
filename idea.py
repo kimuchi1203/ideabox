@@ -3,13 +3,18 @@ from google.appengine.api import users
 from google.appengine.ext import db
 
 class Idea(db.Model):
-	author = db.UserProperty()
-	content = db.StringProperty(multiline=True)
-	date = db.DateTimeProperty(auto_now_add=True)
-	parent_id = db.IntegerProperty()
-	# (TODO) deleted_flag
+    author = db.UserProperty()
+    content = db.StringProperty(multiline=True)
+    date = db.DateTimeProperty(auto_now_add=True)
+    parent_id = db.IntegerProperty()
+    # (TODO) deleted_flag
 
-# (TODO) 関数名は idea_hoge() にする
+    def idea_delete_content(self):
+    # delete only content by user
+        if self.author is not None and self.author == users.get_current_user():
+            self.content = "(deleted)"
+            # (TODO) chant to "deleted_flag = true"
+
 def idea_create(content_text, parent_idea):
 	idea = Idea()
 	if users.get_current_user():
@@ -17,12 +22,6 @@ def idea_create(content_text, parent_idea):
 	idea.content = content_text
 	idea.parent = parent_idea
 	idea.put()
-
-def idea_delete_content(self):
-	# delete only content by user
-	if self.author is not None and self.author == users.get_current_user():
-		self.content = "(deleted)"
-		# (TODO) deleted_flag = true にするだけでデータは保持
 
 def idea_delete(idea):
 	# delete tree for maintenance
