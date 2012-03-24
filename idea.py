@@ -7,13 +7,13 @@ class Idea(db.Model):
     content = db.StringProperty(multiline=True)
     date = db.DateTimeProperty(auto_now_add=True)
     parent_id = db.IntegerProperty()
-    # (TODO) deleted_flag
+    delete_flag = db.BooleanProperty()
 
     def idea_delete_content(self):
     # delete only content by user
         if self.author is not None and self.author == users.get_current_user():
-            self.content = "(deleted)"
-            # (TODO) chant to "deleted_flag = true"
+            # self.content = "(deleted)"
+            self.delete_flag = True
 
 def idea_create(content_text, parent_idea):
 	idea = Idea()
@@ -21,6 +21,7 @@ def idea_create(content_text, parent_idea):
 		idea.author = users.get_current_user()
 	idea.content = content_text
 	idea.parent = parent_idea
+        idea.delete_flag = False
 	idea.put()
 
 def idea_delete(idea):

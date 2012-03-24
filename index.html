@@ -31,6 +31,9 @@
       <div class="row idea_list">
         {% for idea in idea_list %}
           <div class="idea">
+            {% if idea.delete_flag %}
+            <p class="idea_content">(deleted)</p>
+            {% else %}
             <p class="idea_content">{{ idea.content }}</p>
             <p class="author">{{ idea.author }}</p>
             <p class="date">{{ idea.date }}</p>
@@ -38,6 +41,7 @@
               <div><input type="submit" class="btn-mini" value="delete" /></div>
               <div><input type="hidden" name="idea_id" value="{{idea.key.id}}" /></div>
             </form>
+            {% endif %}
           </div>
         {% endfor %}
       </div><!-- /row -->

@@ -12,7 +12,6 @@ from google.appengine.ext.webapp import template
 from idea import Idea
 from idea import idea_create
 from idea import idea_delete
-#from idea import idea_delete_content
 
 class MainPage(webapp.RequestHandler):
     def get(self):
@@ -35,24 +34,17 @@ class MainPage(webapp.RequestHandler):
 
 class IdeaPost(webapp.RequestHandler):
     def post(self):
-        idea = Idea()
-        if users.get_current_user():
-            idea.author = users.get_current_user()
-
-        idea.content = self.request.get('content')
-        idea.put()
+        new_idea = idea_create(self.request.get('content'),None)
         self.redirect('/')
 
 class IdeaDelete(webapp.RequestHandler):
     def post(self):
-        #idea_id = int(self.request.get('idea_id'))
         #idea_target = Idea.get_by_id(int(self.request.get('idea_id')))
         idea_target = Idea.get(db.Key.from_path('Idea', int(self.request.get('idea_id'))))
         # idea_delete(idea_target) is not work
         # idea_target.delete() is work
         idea_target.idea_delete_content()
-        #idea_target.put() is not work
-        # (TODO) idea_delete(selected_idea) -> idea_delete_content in the future
+        idea_target.put()
         self.redirect('/')
 
 application = webapp.WSGIApplication([('/', MainPage),
