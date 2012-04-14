@@ -30,7 +30,7 @@
     <div class="content">
       <div class="row idea_list">
         {% for idea in idea_list %}
-          <div class="idea" data-idea_id="{{idea.key.id}}">
+          <div class="idea" id="{{idea.key.id}}">
             {% if idea.delete_flag %}
             <p class="idea_content">(deleted)</p>
             {% else %}
@@ -54,7 +54,7 @@
       </div><!-- /row -->
     </div><!-- content -->
     <div class="sidebar ideapost">
-      <form action="/ideapost" method="post">
+      <form action="/ideapost" method="post" id="post_idea">
         <div><textarea name="content" rows="3" cols="60"></textarea></div>
         <div><input type="submit" class="btn" value="Post Idea" /></div>
       </form>
