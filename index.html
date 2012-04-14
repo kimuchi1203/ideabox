@@ -18,12 +18,12 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
-              <li class="active"><a href="#">Home</a></li>
-              <li class="active"><a href="#">Home</a></li>
             </ul>
 	<p class="navbar-text pull-right">Logged in as <a href="{{ login_out_url }}">{{ user_name }}</a></p>
           </div><!-- /.nav-collapse -->
         </div>
+            <p class="date">{{ idea.date }}</p>
+            <p class="date">{{ idea.date }}</p>
       </div>
     </div><!-- /navbar -->
     <div class="container-fluid">
@@ -37,10 +37,13 @@
             <p class="idea_content">{{ idea.content }}</p>
             <p class="author">{{ idea.author }}</p>
             <p class="date">{{ idea.date }}</p>
+            <!-- author==user -->
+            {% ifequal user_name idea.author %}
             <form action="/ideadelete" class="idea_btn" method="post">
               <div><input type="submit" class="btn-mini" value="delete" /></div>
               <div><input type="hidden" name="idea_id" value="{{idea.key.id}}" /></div>
             </form>
+            {% endifequal %}
             {% endif %}
           </div>
         {% endfor %}
