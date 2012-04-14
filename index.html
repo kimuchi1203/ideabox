@@ -30,20 +30,24 @@
     <div class="content">
       <div class="row idea_list">
         {% for idea in idea_list %}
-          <div class="idea">
+          <div class="idea" data-idea_id="{{idea.key.id}}">
             {% if idea.delete_flag %}
             <p class="idea_content">(deleted)</p>
             {% else %}
             <p class="idea_content">{{ idea.content }}</p>
             <p class="author">{{ idea.author }}</p>
             <p class="date">{{ idea.date }}</p>
-            <!-- author==user -->
+            {% ifnotequal user_name None %}
             {% ifequal user_name idea.author %}
+            <div>
             <form action="/ideadelete" class="idea_btn" method="post">
-              <div><input type="submit" class="btn-mini" value="delete" /></div>
-              <div><input type="hidden" name="idea_id" value="{{idea.key.id}}" /></div>
+              <input type="submit" class="btn-mini" value="delete" />
+              <input type="button" class="btn-mini" value="edit" onclick="edit_idea({{idea.key.id}})" />
+              <input type="hidden" name="idea_id" value="{{idea.key.id}}" />
             </form>
+            </div>
             {% endifequal %}
+            {% endifnotequal %}
             {% endif %}
           </div>
         {% endfor %}
@@ -63,5 +67,6 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.js"></script>
+    <script src="/js/ideabox.js"></script>
   </body>
 </html>
