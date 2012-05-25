@@ -55,8 +55,9 @@
     </div><!-- content -->
     <div class="sidebar ideapost">
       <form action="/ideapost" method="post" id="post_idea">
-        <div><textarea name="content" rows="3" cols="60"></textarea></div>
+        <div><textarea name="content" rows="3" cols="60" id="post_text"></textarea></div>
         <div><input type="submit" class="btn" value="Post Idea" /></div>
+	<input type="hidden" id="post_id" name="post_id" value="0" />
       </form>
     </div><!-- /sidebar -->
     </div><!-- /container-fluid -->

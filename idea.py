@@ -5,7 +5,7 @@ from google.appengine.ext import db
 class Idea(db.Model):
     author = db.UserProperty()
     content = db.StringProperty(multiline=True)
-    date = db.DateTimeProperty(auto_now_add=True)
+    date = db.DateTimeProperty(auto_now=True)
     parent_id = db.IntegerProperty()
     delete_flag = db.BooleanProperty()
 
@@ -14,6 +14,10 @@ class Idea(db.Model):
         if self.author is not None and self.author == users.get_current_user():
             # self.content = "(deleted)"
             self.delete_flag = True
+
+    def idea_edit(self, content_text):
+	self.content = content_text
+        self.put()
 
 def idea_create(content_text, parent_idea):
 	idea = Idea()

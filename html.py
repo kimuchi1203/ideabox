@@ -34,7 +34,11 @@ class MainPage(webapp.RequestHandler):
 
 class IdeaPost(webapp.RequestHandler):
     def post(self):
-        new_idea = idea_create(self.request.get('content'),None)
+	if self.request.get('post_id') == "0":
+            new_idea = idea_create(self.request.get('content'), None)
+	else:
+            idea_target = Idea.get(db.Key.from_path('Idea', int(self.request.get('post_id'))))
+            idea_target.idea_edit(self.request.get('content'))
         self.redirect('/')
 
 class IdeaDelete(webapp.RequestHandler):
