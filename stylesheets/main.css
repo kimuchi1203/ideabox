@@ -4,7 +4,7 @@ body {
 }
 .container-fluid > .sidebar {
   float: left;
-  width: 220px;
+  width: 260px;
   margin-left:20px;
   margin-top:0px;
 }

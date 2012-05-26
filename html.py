@@ -34,11 +34,14 @@ class MainPage(webapp.RequestHandler):
 
 class IdeaPost(webapp.RequestHandler):
     def post(self):
-	if self.request.get('post_id') == "0":
-            new_idea = idea_create(self.request.get('content'), None)
-	else:
+	if self.request.get('post_id') != "0":
             idea_target = Idea.get(db.Key.from_path('Idea', int(self.request.get('post_id'))))
             idea_target.idea_edit(self.request.get('content'))
+	elif self.request.get('reply_id') != "0":
+	    idea_target = Idea.get(db.Key.from_path('Idea', int(self.request.get('reply_id'))))
+	    reply_idea = idea_create(self.request.get('content'), idea_target)
+        else:
+            new_idea = idea_create(self.request.get('content'), None)
         self.redirect('/')
 
 class IdeaDelete(webapp.RequestHandler):

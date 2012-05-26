@@ -37,17 +37,18 @@
             <p class="idea_content">{{ idea.content }}</p>
             <p class="author">{{ idea.author }}</p>
             <p class="date">{{ idea.date }}</p>
-            {% ifnotequal user_name None %}
-            {% ifequal user_name idea.author %}
             <div>
             <form action="/ideadelete" class="idea_btn" method="post">
+              <input type="button" class="btn-mini" value="reply" onclick="reply_idea({{idea.key.id}})" />
+              <input type="hidden" name="idea_id" value="{{idea.key.id}}" />
+              {% ifnotequal user_name None %}
+              {% ifequal user_name idea.author %}
               <input type="submit" class="btn-mini" value="delete" />
               <input type="button" class="btn-mini" value="edit" onclick="edit_idea({{idea.key.id}})" />
-              <input type="hidden" name="idea_id" value="{{idea.key.id}}" />
+              {% endifequal %}
+              {% endifnotequal %}
             </form>
             </div>
-            {% endifequal %}
-            {% endifnotequal %}
             {% endif %}
           </div>
         {% endfor %}
@@ -56,8 +57,10 @@
     <div class="sidebar ideapost">
       <form action="/ideapost" method="post" id="post_idea">
         <div><textarea name="content" rows="3" cols="60" id="post_text"></textarea></div>
-        <div><input type="submit" class="btn" value="Post Idea" /></div>
+        <div><input type="submit" class="btn" value="Post Idea" />
+             <span id="post_info"></span></div>
 	<input type="hidden" id="post_id" name="post_id" value="0" />
+	<input type="hidden" id="reply_id" name="reply_id" value="0" />
       </form>
     </div><!-- /sidebar -->
     </div><!-- /container-fluid -->
