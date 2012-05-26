@@ -38,6 +38,9 @@
             <p class="author">{{ idea.author }}</p>
             <p class="date">{{ idea.date }}</p>
             <div>
+            {% if idea.parent_id %}
+            <a name="idea_info" href="#{{ idea.parent_id }}">reply to {{ idea.parent_id }}</a>
+            {% endif %}
             <form action="/ideadelete" class="idea_btn" method="post">
               <input type="button" class="btn-mini" value="reply" onclick="reply_idea({{idea.key.id}})" />
               <input type="hidden" name="idea_id" value="{{idea.key.id}}" />
