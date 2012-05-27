@@ -4,8 +4,7 @@
     <link type="text/css" rel="stylesheet" href="/stylesheets/bootstrap-responsive.min.css" />
     <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
   </head>
-  <body>
-
+  <body onload="loadText()">
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -28,33 +27,7 @@
     </div><!-- /navbar -->
     <div class="container-fluid">
     <div class="content">
-      <div class="row idea_list">
-        {% for idea in idea_list %}
-          <div class="idea" id="{{idea.key.id}}">
-            {% if idea.delete_flag %}
-            <p class="idea_content">(deleted)</p>
-            {% else %}
-            <p class="idea_content">{{ idea.content }}</p>
-            <p class="author">{{ idea.author }}</p>
-            <p class="date">{{ idea.date }}</p>
-            <div>
-            {% if idea.parent_id %}
-            <a name="idea_info" href="#{{ idea.parent_id }}">reply to {{ idea.parent_id }}</a>
-            {% endif %}
-            <form action="/ideadelete" class="idea_btn" method="post">
-              <input type="button" class="btn-mini" value="reply" onclick="reply_idea({{idea.key.id}})" />
-              <input type="hidden" name="idea_id" value="{{idea.key.id}}" />
-              {% ifnotequal user_name None %}
-              {% ifequal user_name idea.author %}
-              <input type="submit" class="btn-mini" value="delete" />
-              <input type="button" class="btn-mini" value="edit" onclick="edit_idea({{idea.key.id}})" />
-              {% endifequal %}
-              {% endifnotequal %}
-            </form>
-            </div>
-            {% endif %}
-          </div>
-        {% endfor %}
+      <div class="row idea_list" id="idea_list">
       </div><!-- /row -->
     </div><!-- content -->
     <div class="sidebar ideapost">
@@ -75,5 +48,6 @@
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.js"></script>
     <script src="/js/ideabox.js"></script>
+    <script src="/js/async.js"></script>
   </body>
 </html>

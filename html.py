@@ -13,6 +13,8 @@ from idea import Idea
 from idea import idea_create
 from idea import idea_delete
 
+import json
+
 class MainPage(webapp.RequestHandler):
     def get(self):
         if users.get_current_user():
@@ -54,9 +56,27 @@ class IdeaDelete(webapp.RequestHandler):
         idea_target.put()
         self.redirect('/')
 
+class IdeaList(webapp.RequestHandler):
+    def get(self):
+        idea_query = Idea.all()
+        idea_list = idea_query.fetch(10)
+        data = json.encode(idea_list)
+        idlist = "[" + "{ user_name: \"" + str(users.get_current_user()) + "\"}, "
+        for i in idea_list:
+            idlist += "{ id: "
+            idlist += str(i.key().id()) + " }, "
+
+        idlist = idlist.rsplit(",", 1)[0]
+        idlist += "]"
+        data = data.split("[", 1)[1]
+        data = "[" + idlist + ", " + data
+        self.response.headers['Content-Type'] = 'application/json; charset=utf-8'  
+        self.response.out.write(data)
+
 application = webapp.WSGIApplication([('/', MainPage),
                                       ('/ideapost', IdeaPost),
-                                      ('/ideadelete', IdeaDelete)],
+                                      ('/ideadelete', IdeaDelete),
+                                      ('/idealist', IdeaList)],
                                      debug=True)
 
 def main():
