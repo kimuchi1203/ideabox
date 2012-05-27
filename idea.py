@@ -26,7 +26,8 @@ def idea_create(content_text, parent_idea):
 	idea.content = content_text
 	idea.parent = parent_idea
         idea.delete_flag = False
-	idea.parent_id = parent_idea.key().id()
+        if parent_idea:
+		idea.parent_id = parent_idea.key().id()
 	idea.put()
 
 def idea_delete(idea):
